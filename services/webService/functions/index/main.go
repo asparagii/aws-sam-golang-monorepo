@@ -1,21 +1,29 @@
 package main
 
-import "fmt"
-import "github.com/aws/aws-lambda-go/lambda"
+import (
+	"encoding/json"
+	"fmt"
 
-type input struct {
+	"github.com/aws/aws-lambda-go/events"
+	"github.com/aws/aws-lambda-go/lambda"
+)
+
+type response struct {
 	Message string `json:"message:"`
-	Age     int    `json:"age:"`
 }
 
-type output struct {
-	Test string `json:"response:"`
-}
+func handler(event events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+	fmt.Printf("Received event: %v", event)
 
-func handler(in input) (output, error) {
-	fmt.Printf("Received message: %+v", in)
-	return output{
-		Test: in.Message,
+	response, err := json.Marshal(response{"Everything went right!"})
+	if err != nil {
+		return events.APIGatewayProxyResponse{}, fmt.Errorf("Unable to marshal response message")
+	}
+
+	return events.APIGatewayProxyResponse{
+		StatusCode: 200,
+		Headers:    map[string]string{"Content-Type": "application/json"},
+		Body:       string(response),
 	}, nil
 }
 

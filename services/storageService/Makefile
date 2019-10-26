@@ -5,7 +5,7 @@ build: lambdas
 
 lambdas: $(LAMBDA_SAVEMESSAGE)
 
-$(LAMBDA_SAVEMESSAGE):
+$(LAMBDA_SAVEMESSAGE): functions/$(LAMBDA_SAVEMESSAGE_NAME)/*
 	GOOS=linux GOARCH=amd64 go build -o $(LAMBDA_SAVEMESSAGE) functions/$(LAMBDA_SAVEMESSAGE_NAME)/main.go
 
 clean:

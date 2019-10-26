@@ -1,18 +1,25 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: >
-  sam-app
 
 Globals:
   Function:
     Timeout: 5
+
+Parameters:
+  Stage:
+    Type: String
+    Default: dev
 
 Resources:
     WebService:
         Type: AWS::Serverless::Application
         Properties:
             Location: services/webService/template.yaml
+            Parameters:
+              Stage: !Ref Stage
     StorageService:
         Type: AWS::Serverless::Application
         Properties:
             Location: services/storageService/template.yaml
+            Parameters:
+              Stage: !Ref Stage

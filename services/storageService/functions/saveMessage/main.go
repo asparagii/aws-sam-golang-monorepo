@@ -1,14 +1,17 @@
 package main
 
-import "fmt"
-import "github.com/aws/aws-lambda-go/lambda"
+import (
+	"fmt"
+
+	"github.com/aws/aws-lambda-go/lambda"
+)
 
 type input struct {
-	message string `json:"message:"`
+	Message string `json:"message:"`
 }
 
 func handler(in input) error {
-	fmt.Printf("%s", in.message)
+	fmt.Printf("%s", in.Message)
 	return nil
 }
 

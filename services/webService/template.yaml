@@ -1,20 +1,20 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: >
-  sam-app
-  
-  Sample SAM Template for sam-app
 
 Globals:
   Function:
     Timeout: 5
-    CodeUri: dist/functions/
+
+Parameters:
+  Stage:
+    Type: String
 
 Resources:
   Home:
     Type: AWS::Serverless::Function 
     Properties:
       Handler: index
+      CodeUri: dist/functions/
       Runtime: go1.x
       Events:
         Index:
@@ -27,5 +27,5 @@ Resources:
   Api:
     Type: AWS::Serverless::Api
     Properties:
-      StageName: dev
+      StageName: !Ref Stage
 
