@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  sam-app
+
+Globals:
+  Function:
+    Timeout: 5
+
+Resources:
+    WebService:
+        Type: AWS::Serverless::Application
+        Properties:
+            Location: services/webService/template.yaml
+    StorageService:
+        Type: AWS::Serverless::Application
+        Properties:
+            Location: services/storageService/template.yaml
